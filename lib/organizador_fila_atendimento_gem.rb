@@ -8,10 +8,20 @@ module OrganizadorFilaAtendimentoGem
   class SimuladorFila
     def initialize
       @random = Random.new
+      @fila = []
+    end
+
+    def adicionar_cliente(tempo_chegada)
+      @fila << { tempo_chegada: tempo_chegada }
+    end
+
+    def processar_atendimento(tempo_atual)
+      cliente = @fila.shift
+      espera = tempo_atual - cliente[:tempo_chegada]
+      puts "Cliente atendido após #{espera} unidades de tempo."
     end
 
     def tempo_chegada_cliente
-      # Suponha que queremos simular tempos de chegada de clientes entre 1 e 10 minutos
       @random.rand(1..10)
     end
 
