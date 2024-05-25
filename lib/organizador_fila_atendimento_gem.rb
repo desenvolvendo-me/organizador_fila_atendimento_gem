@@ -29,6 +29,21 @@ module OrganizadorFilaAtendimentoGem
       # Suponha que queremos simular tempos de atendimento entre 5 e 20 minutos
       @random.rand(5..20)
     end
+
+    def tempo_medio_espera
+      total_espera = @fila.sum { |cliente| cliente[:tempo_atendimento] }
+      total_espera / @fila.size.to_f
+    end
+
+    def tempo_medio_sistema
+      total_sistema = @fila.sum { |cliente| cliente[:tempo_atendimento] } + @fila.size
+      total_sistema / @fila.size.to_f
+    end
+
+    def taxa_ocupacao_servidor(tempo_atual)
+      total_atendimentos = tempo_atual
+      (total_atendimentos / (tempo_atual * 1.0)) * 100
+    end
   end
 
 end
